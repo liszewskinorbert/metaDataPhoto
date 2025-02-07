@@ -1,0 +1,29 @@
+import os
+import win32com.client as win32
+
+attachment_path = r"C:\path\test.txt"
+
+def send_email(to, subject, body, attachment=None):
+
+    outlook = win32.Dispatch('outlook.application')
+    mail = outlook.CreateItem(0)
+
+
+    mail.To = to
+    mail.Subject = subject
+    mail.Body = body
+
+
+    if attachment and os.path.isfile(attachment):
+        mail.Attachments.Add(attachment)
+
+
+    mail.Send()
+
+
+send_email(
+    "name@email.com",
+    "Test1234",
+    "Test body",
+    attachment_path  
+)
